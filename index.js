@@ -27,8 +27,8 @@ const tui_data = {
             "title" :  "Main menu\n",
             "text" :
                 "1. Lovense Remote configuration\n" +
-                "2. Intiface Central Configuration\n" +
-                "3. Instructions\n"
+                "2. Intiface Central Configuration\n"
+
         },
         {
             "id": "1",
@@ -167,7 +167,7 @@ function TUI_read_input(input){
     if (Number.isInteger(input)) {
         //if in main menu, move between menus
         if (term_menu == 0) {
-            if (input >= 0 && input <= 3) {
+            if (input >= 0 && input <= 2) {
                 term_menu = input
             }
             return
@@ -421,12 +421,13 @@ async function LR_pattern_translate(action, strength_list, duration, interval){
             if (j > strength_list.length - 1) {
                 j = 0
             } //let j index loop
-            j += 1
+
 
             await new Promise(r => setTimeout(r, interval));
 
             //vibrate
             if (action == "v") {
+
                 IC_send_vibration(strength_list[j] / 20, 0)
                 //console.log("sent_vibration")
             }
@@ -450,6 +451,7 @@ async function LR_pattern_translate(action, strength_list, duration, interval){
             if (action == "s") {
             }
         }
+        j += 1
         IC_send_vibration(0,1)
         IC_send_oscillation(0,1)
         IC_send_rotation(0,1,true)
@@ -506,6 +508,7 @@ async function IC_connect() {
 
     client.startScanning()
     //IC_send_vibration(1,1000)
+    test_toys()
 
 }
 //////////////////////////////////////////////////
